@@ -1,7 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {GithubService} from './services/github.service';
-import {Observable} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import {BranchInterface} from './interfaces';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,9 @@ import {BranchInterface} from './interfaces';
 })
 export class AppComponent implements OnInit, OnDestroy {
   branches$: Observable<BranchInterface[]>;
+  selectedBranch: BranchInterface;
+
+  private destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private githubService: GithubService) {
   }
@@ -19,10 +23,24 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
 
-  public getBranchesAsyncPipe(): void {
+  getBranchesAsyncPipe(): void {
     this.branches$ = this.githubService.getAllBranches();
   }
 
+  getCommits(branch: string): void {
+    this.githubService.getCommits(branch).pipe(takeUntil(this.destroy$)).subscribe((res) => {
+      console.log(res);
+    });
+  }
+
+  changeBranch(e: string): void {
+    if (e) {
+      this.getCommits(e);
+    }
+  }
+
   ngOnDestroy(): void {
+    this.destroy$.next(true);
+    this.destroy$.unsubscribe();
   }
 }

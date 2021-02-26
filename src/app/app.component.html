@@ -1,9 +1,8 @@
 <div class="container-fluid">
-  <form>
-    <select class="form-control">
-      <option value="main"  *ngFor="let branch of branches$ | async">{{branch.name}}</option>
+    <select class="form-control" [(ngModel)]="selectedBranch" (ngModelChange)="changeBranch($event)">
+      <option [ngValue]="undefined" >Select Branch</option>
+      <option *ngFor="let branch of branches$ | async;" [ngValue]="branch.name">{{branch.name}}</option>
     </select>
-  </form>
 </div>
 
 <div class="container mt-5 mb-5">
