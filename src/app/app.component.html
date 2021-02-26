@@ -1,22 +1,10 @@
 <div class="container-fluid">
   <form>
     <select class="form-control">
-      <option value="main">Main</option>
-      <option value="master">Master</option>
+      <option value="main"  *ngFor="let branch of branches$ | async">{{branch.name}}</option>
     </select>
   </form>
 </div>
-
-<!--<div class="container-fluid" style="padding-top: 25px">-->
-<!--  <span class="app-list-date">Commits on Feb 25, 2021</span>-->
-<!--  <ul class="list-group">-->
-<!--    <li class="list-group-item">A second item</li>-->
-<!--    <li class="list-group-item">A second item</li>-->
-<!--    <li class="list-group-item">A second item</li>-->
-<!--    <li class="list-group-item">A second item</li>-->
-<!--  </ul>-->
-<!--</div>-->
-
 
 <div class="container mt-5 mb-5">
   <div class="row">
