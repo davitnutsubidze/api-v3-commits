@@ -36,3 +36,15 @@ ul.timeline > li:before {
   height: 20px;
   z-index: 400;
 }
+
+.app-committer {
+  display: block;
+  font-size: 13px;
+  font-style: italic;
+}
+
+.app-avatar {
+  width: 20px;
+  border-radius: 50%;
+  margin-right: 5px;
+}

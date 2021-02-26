@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {from, Observable} from 'rxjs';
 import {BranchInterface} from '../interfaces';
-import {map} from 'rxjs/operators';
+import {groupBy, map, mergeMap, toArray} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +20,13 @@ export class GithubService {
     return this.http.get(`${this.apiUrl}/commits?sha=${branch}&page=1&per_page=5`, {observe: 'response'})
       .pipe(
         map(x => {
+          const commits = Object.entries(x.body).map((t) => {
+            t[1].commit.committerLogin = t[1].committer.login;
+            t[1].commit.committerAvatar = t[1].committer.avatar_url;
+            return t[1].commit;
+          });
           return {
-            data: x.body,
+            data: commits,
             links: x.headers.get('link') ? x.headers.get('link').split(',') : []
           };
         })
