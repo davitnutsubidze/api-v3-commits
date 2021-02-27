@@ -16,8 +16,9 @@ export class GithubService {
       return this.http.get<BranchInterface[]>(`${this.apiUrl}/branches`);
     }
 
-  getCommits(branch: string): Observable<any> {
-    return this.http.get(`${this.apiUrl}/commits?sha=${branch}&page=1&per_page=5`, {observe: 'response'})
+  getCommits(branch: string, customUrl: string): Observable<any> {
+    const url = customUrl ? customUrl : `${this.apiUrl}/commits?sha=${branch}&page=1&per_page=4`;
+    return this.http.get(url, {observe: 'response'})
       .pipe(
         map(x => {
           const commits = Object.entries(x.body).map((t) => {

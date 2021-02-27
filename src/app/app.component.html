@@ -24,4 +24,8 @@
       </ul>
     </div>
   </div>
+  <div class="row">
+    <button type="button" class="btn btn-info app-btn-page" *ngFor="let page of paginationArray"
+    (click)="onPage(page.url)">{{page.label}}</button>
+  </div>
 </div>
