@@ -11,7 +11,7 @@
       <h4>Commits</h4>
       <ul class="timeline">
         <li *ngFor="let commitsArr of commits">
-          <a target="_blank" href="https://www.totoprayogo.com/#">Commits on  | {{commitsArr[0].committer.date}}</a>
+          <a target="_blank" href="https://www.totoprayogo.com/#">Commits on  {{commitsArr[0].committer.date | date}}</a>
           <ul class="list-group">
             <li class="list-group-item"  *ngFor="let commit of commitsArr">
               {{commit.message}}

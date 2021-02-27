@@ -3,12 +3,13 @@ import {HttpClient} from '@angular/common/http';
 import {from, Observable} from 'rxjs';
 import {BranchInterface} from '../interfaces';
 import {groupBy, map, mergeMap, toArray} from 'rxjs/operators';
+import {environment} from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GithubService {
-  apiUrl = 'https://api.github.com/repos/davitnutsubidze/api-v3-commits';
+  apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
